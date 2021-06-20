@@ -8,9 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class Company extends Model
 {
     use HasFactory;
-
-    public $timestamps = false;
-
-    const UPDATED_AT = null;
-    const CREATED_AT = null;
 }

@@ -14,35 +14,42 @@ class CreateForeignersTable extends Migration
     public function up()
     {
         Schema::create('foreigners', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
 
             $table
                 ->unsignedInteger('company_id')
+                ->index('company_id')
                 ->nullable(true)
                 ->default(null);
-            $table->index('company_id', 'company_id');
 
-            $table->string('ccode', 200)->nullable(false)->default('');
-            $table->string('surname', 200)->nullable(false)->default('');
-            $table->string('name', 200)->nullable(false)->default('');
+            $table->string('ccode')->default(''); // fixme ccode_id ?
+            $table->string('surname')->default('');
+            $table->string('name')->default('');
 
-            $table->unsignedInteger('country_id')->nullable(false);
+            $table
+                ->unsignedInteger('country_id')
+                ->index('country_id')
+                ->nullable(false);
+
             $table->timestamp('regdate')->useCurrentOnUpdate()->useCurrent();
-            $table->timestamp('regenddate')->nullable(true)->default(null);
+            $table->date('regenddate')->nullable(true)->default(null);
 
             $table->unsignedInteger('patentserie')->nullable(false);
             $table->unsignedInteger('patentnumber')->nullable(false);
-            $table->timestamp('patentdate')->nullable(true)->default(null);
-            $table->timestamp('patentenddate')->nullable(true)->default(null);
-            $table->timestamp('patentnextpaydate')->nullable(true)->default(null);
+
+            $table->date('patentdate')->nullable(true)->default(null);
+            $table->date('patentenddate')->nullable(true)->default(null);
+            $table->date('patentnextpaydate')->nullable(true)->default(null);
 
             $table->unsignedInteger('polisnumber')->nullable(false);
-            $table->string('poliscompany', 200)->nullable(false)->default('');
+            $table->string('poliscompany')->default('');
 
-            $table->timestamp('polisdate')->nullable(true)->default(null);
-            $table->timestamp('polisenddate')->nullable(true)->default(null);
-            $table->timestamp('dateoutwork')->nullable(true)->default(null);
-            $table->timestamp('dateinwork')->nullable(true)->default(null);
+            $table->date('polisdate')->nullable(true)->default(null);
+            $table->date('polisenddate')->nullable(true)->default(null);
+            $table->date('dateoutwork')->nullable(true)->default(null);
+            $table->date('dateinwork')->nullable(true)->default(null);
+
+            $table->timestamps();
 
             $table
                 ->foreign('company_id')
@@ -62,5 +69,10 @@ class CreateForeignersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('foreigners');
+
+        Schema::table('foreigners', function(Blueprint $table)
+        {
+            $table->dropForeign('company_id');
+        });
     }
 }
