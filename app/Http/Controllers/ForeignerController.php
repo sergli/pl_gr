@@ -114,6 +114,6 @@ class ForeignerController extends Controller
         $foreigner = Foreigner::find($id);
         $foreigner->delete();
 
-        return redirect('/contacts')->with('success', 'Foreigner deleted!');
+        return redirect('/foreigners')->with('success', 'Foreigner deleted!');
     }
 }
