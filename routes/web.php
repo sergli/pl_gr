@@ -19,3 +19,7 @@ Route::get('/', function () {
 
 Route::resource('foreigners', \App\Http\Controllers\ForeignerController::class);
 //Route::apiResource('foreigners', \App\Http\Controllers\ForeignerController::class);
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
