@@ -30,6 +30,12 @@ class CreateUsersTable extends Migration
                 ->nullable(true)
                 ->default(null);
 
+            $table
+                ->unsignedInteger('role_id')
+                ->index('role_id')
+                ->nullable(true)
+                ->default(null);
+
             $table->string('role')->default('');
 
             $table

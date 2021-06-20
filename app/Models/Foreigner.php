@@ -13,8 +13,9 @@ class Foreigner extends Model
 
     protected $fillable =[
         'company_id',
-        'surname',
         'name',
+        'surname',
+        'position',
         'country_id',
         //'regdate',
         //'regenddate',
@@ -29,5 +30,7 @@ class Foreigner extends Model
         //'polisenddate',
         'dateoutwork',
         //'dateinwork',
+        //'created_at',
+        //'updated_at',
     ];
 }

@@ -26,6 +26,14 @@ class CreateForeignersTable extends Migration
             $table->string('surname')->default('');
 
             $table
+                ->unsignedInteger('position_id')
+                ->index('position_id')
+                ->nullable(true)
+                ->default(null);
+
+            $table->string('position')->default('');
+
+            $table
                 ->unsignedInteger('country_id')
                 ->index('country_id')
                 ->nullable(false);

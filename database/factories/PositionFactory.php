@@ -2,17 +2,17 @@
 
 namespace Database\Factories;
 
-use App\Models\Company;
+use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class CompanyFactory extends Factory
+class PositionFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
-     */
-    protected $model = Company::class;
+
+    protected $model = Position::class;
 
     /**
      * Define the model's default state.
@@ -21,7 +21,7 @@ class CompanyFactory extends Factory
      */
     public function definition()
     {
-        $name = $this->faker->randomElement(['left bank', 'bambule', 'black swan']);
+        $name = $this->faker->randomElement(['cleaner', 'security', 'cook', 'driver']);
         return [
             'name' => $name,
         ];
