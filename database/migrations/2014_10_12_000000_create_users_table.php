@@ -15,12 +15,31 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('name')->default('');
+            $table->string('email')->unique()->default('');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->string('surname')->default('');
+            $table->string('position')->default('');
+
+            $table
+                ->unsignedInteger('company_id')
+                ->nullable(true)
+                ->default(null);
+            $table->index('company_id', 'company_id');
+
+            $table->string('ccode')->default('');
+            $table->string('role')->default('');
+
+            $table
+                ->foreign('company_id')
+                ->references('id')
+                ->on('companies')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 
@@ -32,5 +51,10 @@ class CreateUsersTable extends Migration
     public function down()
     {
         Schema::dropIfExists('users');
+
+        Schema::table('users', function(Blueprint $table)
+        {
+            $table->dropForeign('company_id');
+        });
     }
 }
