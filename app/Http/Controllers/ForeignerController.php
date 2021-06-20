@@ -93,7 +93,6 @@ class ForeignerController extends Controller
         $foreigner = Foreigner::find($id);
         $foreigner->name =  $request->get('name');
         $foreigner->company_id = $request->get('company_id');
-        $foreigner->ccode = $request->get('ccode');
         $foreigner->surname = $request->get('surname');
 
         $foreigner->patentserie = $request->get('patentserie');

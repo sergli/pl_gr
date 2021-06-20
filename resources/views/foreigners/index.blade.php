@@ -36,7 +36,6 @@
                 <td>{{$foreigner->id}}</td>
                 <td>{{$foreigner->name}} {{$foreigner->surname}}</td>
                 <td>{{$foreigner->company_id}}</td>
-                <td>{{$foreigner->ccode}}</td>
                 <td>{{$foreigner->patentserie}}</td>
                 <td>{{$foreigner->country_id}}</td>
                 <td>

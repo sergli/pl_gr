@@ -23,7 +23,6 @@ class ForeignerFactory extends Factory
     {
         return [
             'company_id' => \App\Models\Company::factory(),
-            'ccode' => '',
             'surname' => '',
             'name' => $this->faker->name(),
             'country_id' => 0,

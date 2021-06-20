@@ -33,10 +33,6 @@
                 <input type="text" class="form-control" name="company_id" value={{ $foreigner->company_id }} />
             </div>
             <div class="form-group">
-                <label for="city">Ccode:</label>
-                <input type="text" class="form-control" name="ccode" value={{ $foreigner->ccode }} />
-            </div>
-            <div class="form-group">
                 <label for="country">Country_id:</label>
                 <input type="text" class="form-control" name="country_id" value={{ $foreigner->country_id }} />
             </div>

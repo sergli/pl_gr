@@ -13,7 +13,6 @@ class Foreigner extends Model
 
     protected $fillable =[
         'company_id',
-        'ccode',
         'surname',
         'name',
         'country_id',

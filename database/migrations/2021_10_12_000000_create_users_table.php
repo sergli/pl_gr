@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->timestamps();
 
             $table->string('surname')->default('');
-            $table->string('position')->default('');
 
             $table
                 ->unsignedInteger('company_id')
@@ -31,7 +30,6 @@ class CreateUsersTable extends Migration
                 ->nullable(true)
                 ->default(null);
 
-            $table->string('ccode')->default('');
             $table->string('role')->default('');
 
             $table

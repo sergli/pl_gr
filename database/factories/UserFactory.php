@@ -32,7 +32,6 @@ class UserFactory extends Factory
             'surname' => '',
             'position' => '',
             'company_id' => \App\Models\Company::factory(),
-            'ccode' => '',
             'role' => '',
         ];
     }

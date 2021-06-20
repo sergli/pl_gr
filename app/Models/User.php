@@ -24,7 +24,6 @@ class User extends Authenticatable
         'surname',
         //'position',
         //'company_id',
-        //'ccode',
         //'role',
     ];
 

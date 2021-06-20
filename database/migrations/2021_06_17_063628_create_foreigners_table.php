@@ -22,9 +22,8 @@ class CreateForeignersTable extends Migration
                 ->nullable(true)
                 ->default(null);
 
-            $table->string('ccode')->default(''); // fixme ccode_id ?
-            $table->string('surname')->default('');
             $table->string('name')->default('');
+            $table->string('surname')->default('');
 
             $table
                 ->unsignedInteger('country_id')
@@ -41,7 +40,7 @@ class CreateForeignersTable extends Migration
             $table->date('patentenddate')->nullable(true)->default(null);
             $table->date('patentnextpaydate')->nullable(true)->default(null);
 
-            $table->unsignedInteger('polisnumber')->nullable(false);
+            $table->unsignedInteger('polisnumber')->nullable(true)->default(null);
             $table->string('poliscompany')->default('');
 
             $table->date('polisdate')->nullable(true)->default(null);
