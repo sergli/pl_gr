@@ -82,15 +82,16 @@ class ForeignerController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
         $foreigner = Foreigner::find($id);
 
+        $user = $request->user();
         $companies = \App\Models\Company::all()->unique('name');
         $countries = \App\Models\Country::all()->unique('name');
         $positions =  \App\Models\Position::all()->unique('name');
 
-        return view('foreigners.edit', compact('foreigner', 'companies', 'countries', 'positions'));
+        return view('foreigners.edit', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
     }
 
     /**
@@ -105,7 +106,7 @@ class ForeignerController extends Controller
         $request->validate([
             'name'         => 'required',
             'surname'      => 'required',
-            'company_id'   => 'required',
+            //'company_id'   => 'required',
             'country_id'   => 'required',
             'position_id'  => 'required',
             'poliscompany' => 'required',
@@ -115,7 +116,8 @@ class ForeignerController extends Controller
         $foreigner->name =  $request->get('name');
         $foreigner->surname = $request->get('surname');
 
-        $foreigner->company_id = $request->get('company_id');
+        // company_id is not editable
+        //$foreigner->company_id = $request->get('company_id');
         $foreigner->position_id = $request->get('position_id');
         $foreigner->country_id = $request->get('country_id');
 

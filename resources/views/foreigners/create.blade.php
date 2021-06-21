@@ -32,18 +32,14 @@
 
                 <div class="form-group">
                     <label for="company_id">Company:</label>
-                    <select class="form-control" name="company_id" required>
-                        <option value="{{$company->id}}" disabled selected>Select Company</option>
-                        @foreach($companies as $company)
-                        <option value="{{$company->id}}">{{$company->name}}</option>
-                        @endforeach
+                    <select class="form-control" name="company_id" value="{{$user->company->id}}" readonly>
+                        <option value="{{$user->company->id}}" selected>{{$user->company->name}}</option>
                     </select>
                 </div>
 
                 <div class="form-group">
                     <label for="position_id">Position:</label>
                     <select class="form-control" name="position_id" required>
-                        <option value="" disabled selected>Select Position</option>
                         @foreach($positions as $position)
                         <option value="{{$position->id}}">{{$position->name}}</option>
                         @endforeach
@@ -53,7 +49,6 @@
                 <div class="form-group">
                     <label for="country_id">Country:</label>
                     <select class="form-control" name="country_id" required>
-                        <option value="" disabled selected>Select Country</option>
                         @foreach($countries as $country)
                         <option value="{{$country->id}}">{{$country->name}}</option>
                         @endforeach
