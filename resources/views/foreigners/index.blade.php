@@ -23,21 +23,22 @@
             <tr>
                 <td>ID</td>
                 <td>Name</td>
-                <td>Email</td>
-                <td>Job Title</td>
-                <td>City</td>
+                <td>Surname</td>
+                <td>Company</td>
+                <td>Position</td>
                 <td>Country</td>
-                <td colspan = 2>Actions</td>
+                <td colspan=2>Actions</td>
             </tr>
             </thead>
             <tbody>
             @foreach($foreigners as $foreigner)
             <tr>
                 <td>{{$foreigner->id}}</td>
-                <td>{{$foreigner->name}} {{$foreigner->surname}}</td>
-                <td>{{$foreigner->company_id}}</td>
-                <td>{{$foreigner->patentserie}}</td>
-                <td>{{$foreigner->country_id}}</td>
+                <td>{{$foreigner->name}}</td>
+                <td>{{$foreigner->surname}}</td>
+                <td>{{$foreigner->company->name}}</td>
+                <td>{{$foreigner->position->name}}</td>
+                <td>{{$foreigner->country->name}}</td>
                 <td>
                     <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-primary">Edit</a>
                 </td>

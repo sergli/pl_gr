@@ -31,18 +31,17 @@ class CreateForeignersTable extends Migration
                 ->nullable(true)
                 ->default(null);
 
-            $table->string('position')->default('');
-
             $table
                 ->unsignedInteger('country_id')
                 ->index('country_id')
                 ->nullable(false);
 
             $table->timestamp('regdate')->useCurrentOnUpdate()->useCurrent();
+
             $table->date('regenddate')->nullable(true)->default(null);
 
-            $table->unsignedInteger('patentserie')->nullable(false);
-            $table->unsignedInteger('patentnumber')->nullable(false);
+            $table->unsignedInteger('patentserie')->nullable(true)->default(null);
+            $table->unsignedInteger('patentnumber')->nullable(true)->default(null);
 
             $table->date('patentdate')->nullable(true)->default(null);
             $table->date('patentenddate')->nullable(true)->default(null);
@@ -58,6 +57,7 @@ class CreateForeignersTable extends Migration
 
             $table->timestamps();
 
+            // foreign keys
             $table
                 ->foreign('company_id')
                 ->references('id')
@@ -65,6 +65,19 @@ class CreateForeignersTable extends Migration
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
+            $table
+                ->foreign('country_id')
+                ->references('id')
+                ->on('countries')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table
+                ->foreign('position_id')
+                ->references('id')
+                ->on('positions')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
         });
     }
 
@@ -80,6 +93,8 @@ class CreateForeignersTable extends Migration
         Schema::table('foreigners', function(Blueprint $table)
         {
             $table->dropForeign('company_id');
+            $table->dropForeign('country_id');
+            $table->dropForeign('position_id');
         });
     }
 }

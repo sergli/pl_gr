@@ -12,4 +12,9 @@ class Position extends Model
     protected $fillable = [
         'name',
     ];
+
+    public function foreigners()
+    {
+        return $this->hasMany(Foreigner::class);
+    }
 }

@@ -21,12 +21,13 @@ class ForeignerFactory extends Factory
      */
     public function definition()
     {
+        $gender = $this->faker->randomElement(['male', 'female']);
+
         return [
             'company_id' => \App\Models\Company::factory(),
-            'name' => $this->faker->name(),
-            'surname' => '',
+            'name' => $this->faker->firstName($gender),
+            'surname' => $this->faker->firstName($gender),
             'position_id' => \App\Models\Position::factory(),
-            'position' => '', // fixme
             'country_id' => \App\Models\Country::factory(),
             'regdate' => $this->faker->date(),
             'regenddate' => $this->faker->date(),

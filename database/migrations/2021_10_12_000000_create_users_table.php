@@ -36,12 +36,18 @@ class CreateUsersTable extends Migration
                 ->nullable(true)
                 ->default(null);
 
-            $table->string('role')->default('');
-
+            // foreign keys
             $table
                 ->foreign('company_id')
                 ->references('id')
                 ->on('companies')
+                ->cascadeOnUpdate()
+                ->restrictOnDelete();
+
+            $table
+                ->foreign('role_id')
+                ->references('id')
+                ->on('roles')
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
         });
@@ -59,6 +65,7 @@ class CreateUsersTable extends Migration
         Schema::table('users', function(Blueprint $table)
         {
             $table->dropForeign('company_id');
+            $table->dropForeign('role_id');
         });
     }
 }

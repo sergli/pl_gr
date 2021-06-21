@@ -9,28 +9,41 @@ class Foreigner extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
-    protected $fillable =[
+    protected $fillable = [
         'company_id',
         'name',
         'surname',
-        'position',
+        'position_id',
         'country_id',
         //'regdate',
         //'regenddate',
-        'patentserie',
-        'patentnumber',
+//        'patentserie',
+//        'patentnumber',
         //'patentdate',
         //'patentenddate',
         //'patentnextpaydate',
-        'polisnumber',
-        'poliscompany',
+//        'polisnumber',
+//        'poliscompany',
         //'polisdate',
         //'polisenddate',
-        'dateoutwork',
+//        'dateoutwork',
         //'dateinwork',
         //'created_at',
         //'updated_at',
     ];
+
+    public function country()
+    {
+        return $this->belongsTo(Country::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
+
+    public function position()
+    {
+        return $this->belongsTo(Position::class);
+    }
 }
