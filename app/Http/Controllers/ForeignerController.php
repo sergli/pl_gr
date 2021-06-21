@@ -14,9 +14,10 @@ class ForeignerController extends Controller
      */
     public function index()
     {
-        $foreigners = Foreigner::all();
+        $user = \auth()->user();
+        $foreigners = Foreigner::all()->where('company_id', $user->company->id);
 
-        return view('foreigners.index', compact('foreigners'));
+        return view('foreigners.index', compact('foreigners', 'user'));
     }
 
     /**
@@ -24,13 +25,14 @@ class ForeignerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $user = $request->user();
         $companies = \App\Models\Company::all()->unique('name');
         $countries = \App\Models\Country::all()->unique('name');
         $positions =  \App\Models\Position::all()->unique('name');
 
-        return view('foreigners.create', compact('companies', 'countries', 'positions'));
+        return view('foreigners.create', compact('user', 'companies', 'countries', 'positions'));
     }
 
     /**

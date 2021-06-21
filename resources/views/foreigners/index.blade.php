@@ -15,10 +15,31 @@
 </div>
 
 
+
 @section('main')
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="display-4">Foreigners</h1>
+
+        <h1 class="display-5">Current user</h1>
+        <table class="table table-dark">
+            <tr>
+                <td>ID</td> <td>{{$user->id}}</td>
+            </tr>
+            <tr>
+                <td>Name</td> <td>{{$user->name}} {{$user->surname}}</td>
+            </tr>
+            <tr>
+                <td>Email</td> <td>{{$user->email}}</td>
+            </tr>
+            <tr>
+                <td>Company</td> <td>{{$user->company->name}}</td>
+            </tr>
+            <tr>
+                <td>Role</td>  <td>{{$user->role->name}}</td>
+            </tr>
+        </table>
+
+        <h1 class="display-5">Foreigners</h1>
         <table class="table table-striped">
             <thead>
             <tr>

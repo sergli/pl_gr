@@ -7,7 +7,7 @@
 @section('main')
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-4">Add a foreigner</h1>
+        <h1 class="display-5">Add a foreigner</h1>
         <div>
             @if ($errors->any())
             <div class="alert alert-danger">
@@ -33,7 +33,7 @@
                 <div class="form-group">
                     <label for="company_id">Company:</label>
                     <select class="form-control" name="company_id" required>
-                        <option value="" disabled selected>Select Company</option>
+                        <option value="{{$company->id}}" disabled selected>Select Company</option>
                         @foreach($companies as $company)
                         <option value="{{$company->id}}">{{$company->name}}</option>
                         @endforeach
