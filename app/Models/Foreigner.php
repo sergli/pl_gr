@@ -23,7 +23,7 @@ class Foreigner extends Model
         //'patentenddate',
         //'patentnextpaydate',
 //        'polisnumber',
-//        'poliscompany',
+        'poliscompany',
         //'polisdate',
         //'polisenddate',
 //        'dateoutwork',

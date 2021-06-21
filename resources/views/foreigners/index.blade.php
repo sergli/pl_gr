@@ -14,10 +14,11 @@
     <a style="margin: 19px;" href="{{ route('foreigners.create')}}" class="btn btn-primary">New foreigner</a>
 </div>
 
+
 @section('main')
 <div class="row">
     <div class="col-sm-12">
-        <h1 class="display-3">Foreigners</h1>
+        <h1 class="display-4">Foreigners</h1>
         <table class="table table-striped">
             <thead>
             <tr>
@@ -27,6 +28,7 @@
                 <td>Company</td>
                 <td>Position</td>
                 <td>Country</td>
+                <td>Polis company</td>
                 <td colspan=2>Actions</td>
             </tr>
             </thead>
@@ -39,6 +41,7 @@
                 <td>{{$foreigner->company->name}}</td>
                 <td>{{$foreigner->position->name}}</td>
                 <td>{{$foreigner->country->name}}</td>
+                <td>{{$foreigner->poliscompany}}</td>
                 <td>
                     <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-primary">Edit</a>
                 </td>

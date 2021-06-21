@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use \App\Http\Controllers\ForeignerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,12 +14,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::resource('foreigners', \App\Http\Controllers\ForeignerController::class);
-//Route::apiResource('foreigners', \App\Http\Controllers\ForeignerController::class);
+Route::redirect('/', '/foreigners')->middleware('auth');
+Route::resource('foreigners', ForeignerController::class)->middleware('auth');
 
 Auth::routes();
 

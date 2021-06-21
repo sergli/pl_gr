@@ -1,8 +1,13 @@
 @extends('base')
+
+<div>
+    <a style="margin: 19px;" href="{{ route('foreigners.index')}}" class="btn btn-primary">Foreigners</a>
+</div
+
 @section('main')
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
-        <h1 class="display-3">Update a foreigner</h1>
+        <h1 class="display-4">Update a foreigner</h1>
 
         @if ($errors->any())
         <div class="alert alert-danger">
@@ -19,27 +24,48 @@
             @csrf
             <div class="form-group">
 
-                <label for="first_name">Name:</label>
+                <label for="name">Name:</label>
                 <input type="text" class="form-control" name="name" value={{ $foreigner->name }} />
             </div>
 
             <div class="form-group">
-                <label for="last_name">Surname:</label>
+                <label for="surname">Surname:</label>
                 <input type="text" class="form-control" name="surname" value={{ $foreigner->surname }} />
             </div>
 
             <div class="form-group">
-                <label for="email">Company_id:</label>
-                <input type="text" class="form-control" name="company_id" value={{ $foreigner->company_id }} />
+                <label for="company_id">Company:</label>
+                <select class="form-control" name="company_id">
+                    @foreach($companies as $company)
+                    <option value="{{$company->id}}" {{ $company->id == $foreigner->company->id ? 'selected' : '' }}>{{$company->name}}</option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="country">Country_id:</label>
-                <input type="text" class="form-control" name="country_id" value={{ $foreigner->country_id }} />
+                <label for="position_id">Position:</label>
+                <select class="form-control" name="position_id">
+                    @foreach($positions as $position)
+                    <option value="{{$position->id}}" {{ $position->id == $foreigner->position->id ? 'selected' : '' }}>{{$position->name}}</option>
+                    @endforeach
+                </select>
             </div>
+
             <div class="form-group">
-                <label for="job_title">Polis number:</label>
-                <input type="text" class="form-control" name="job_title" value={{ $foreigner->polisnumber }} />
+                <label for="country_id">Country:</label>
+                <select class="form-control" name="country_id">
+                    @foreach($countries as $country)
+                    <option value="{{$country->id}}" {{ $country->id == $foreigner->country->id ? 'selected' : '' }}>{{$country->name}}</option>
+                    @endforeach
+                </select>
             </div>
+
+            <div class="form-group">
+                <label for="poliscompany">Polis company:</label>
+                <input type="text" class="form-control" name="poliscompany" value={{ $foreigner->poliscompany }} />
+            </div>
+
+
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
     </div>

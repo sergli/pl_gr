@@ -26,7 +26,11 @@ class ForeignerController extends Controller
      */
     public function create()
     {
-        return view('foreigners.create');
+        $companies = \App\Models\Company::all()->unique('name');
+        $countries = \App\Models\Country::all()->unique('name');
+        $positions =  \App\Models\Position::all()->unique('name');
+
+        return view('foreigners.create', compact('companies', 'countries', 'positions'));
     }
 
     /**
@@ -38,18 +42,24 @@ class ForeignerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name'=>'required',
-            'surname'=>'required',
-            'company_id'=>'required'
-        ]);
-        $Foreigner = new Foreigner(
-            [
-                'name' => $request->get('name'),
-                'surname' => $request->get('surname'),
-                'company_id' => $request->get('company_id'),
-            ]
+            'name'         => 'required',
+            'surname'      => 'required',
+            'company_id'   => 'required',
+            'country_id'   => 'required',
+            'position_id'  => 'required',
+            'poliscompany' => 'required',
+        ]
         );
+        $Foreigner = new Foreigner([
+            'name'         => $request->get('name'),
+            'surname'      => $request->get('surname'),
+            'company_id'   => $request->get('company_id'),
+            'country_id'   => $request->get('country_id'),
+            'position_id'  => $request->get('position_id'),
+            'poliscompany' => $request->get('poliscompany'),
+        ]);
         $Foreigner->save();
+
         return redirect('/foreigners')->with('success', 'Foreigner saved!');
     }
 
@@ -73,7 +83,12 @@ class ForeignerController extends Controller
     public function edit($id)
     {
         $foreigner = Foreigner::find($id);
-        return view('foreigners.edit', compact('foreigner'));
+
+        $companies = \App\Models\Company::all()->unique('name');
+        $countries = \App\Models\Country::all()->unique('name');
+        $positions =  \App\Models\Position::all()->unique('name');
+
+        return view('foreigners.edit', compact('foreigner', 'companies', 'countries', 'positions'));
     }
 
     /**
@@ -86,17 +101,24 @@ class ForeignerController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'name'=>'required',
-            'company_id'=>'required',
+            'name'         => 'required',
+            'surname'      => 'required',
+            'company_id'   => 'required',
+            'country_id'   => 'required',
+            'position_id'  => 'required',
+            'poliscompany' => 'required',
         ]);
 
         $foreigner = Foreigner::find($id);
         $foreigner->name =  $request->get('name');
-        $foreigner->company_id = $request->get('company_id');
         $foreigner->surname = $request->get('surname');
 
-        $foreigner->patentserie = $request->get('patentserie');
-        $foreigner->patentnumber = $request->get('patentnumber');
+        $foreigner->company_id = $request->get('company_id');
+        $foreigner->position_id = $request->get('position_id');
+        $foreigner->country_id = $request->get('country_id');
+
+        $foreigner->poliscompany = $request->get('poliscompany');
+
         $foreigner->save();
 
         return redirect('/foreigners')->with('success', 'Foreigner updated!');
