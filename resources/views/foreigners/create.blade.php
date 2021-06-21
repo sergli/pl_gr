@@ -1,9 +1,5 @@
 @extends('base')
 
-<div>
-    <a style="margin: 19px;" href="{{ route('foreigners.index')}}" class="btn btn-primary">Foreigners</a>
-</div
-
 @section('main')
 <div class="row">
     <div class="col-sm-8 offset-sm-2">
@@ -60,7 +56,11 @@
                     <input type="text" class="form-control" name="poliscompany" value="" />
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add foreigner</button>
+                <div class="btn-group" role="group">
+                    <button type="submit" class="align-self-end btn btn-lg btn-primary">Add foreigner</button>
+                    <a type="button" href="{{ route('foreigners.index')}}" class="btn btn-lg btn-secondary">To the list</a>
+                </div>
+
             </form>
         </div>
     </div>

@@ -10,12 +10,6 @@
 </div>
 
 
-<div>
-    <a style="margin: 19px;" href="{{ route('foreigners.create')}}" class="btn btn-primary">New foreigner</a>
-</div>
-
-
-
 @section('main')
 <div class="row">
     <div class="col-sm-12">
@@ -78,5 +72,12 @@
             </tbody>
         </table>
     <div>
+</div>
+<div class="btn-group" role="group">
+    <a type="button" href="{{ route('foreigners.create')}}" class="align-self-end btn btn-lg btn-primary">Add foreigner</a>
+        <a class="btn btn-lg btn-secondary" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
 </div>
 @endsection

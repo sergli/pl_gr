@@ -65,8 +65,13 @@
                 <input type="text" class="form-control" name="poliscompany" value={{ $foreigner->poliscompany }} />
             </div>
 
+            
+            <div class="btn-group" role="group">
+                <button type="submit" class="align-self-end btn btn-lg btn-primary">Update</button>
+                <a type="button" href="{{ route('foreigners.index')}}" class="btn btn-lg btn-secondary">To the list</a>
+            </div>
 
-            <button type="submit" class="btn btn-primary">Update</button>
+
         </form>
     </div>
 </div>
