@@ -29,7 +29,7 @@
                 <td>Company</td> <td>{{$user->company->name}}</td>
             </tr>
             <tr>
-                <td>Role</td>  <td>{{$user->role->name}}</td>
+                <td>Role</td> <td>{{$user->role}}</td>
             </tr>
         </table>
 

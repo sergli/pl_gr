@@ -17,6 +17,7 @@ use \App\Http\Controllers\ForeignerController;
 Route::redirect('/', '/foreigners')->middleware('auth');
 Route::resource('foreigners', ForeignerController::class)->middleware('auth');
 
-Auth::routes();
+\Illuminate\Support\Facades\Auth::routes();
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
