@@ -14,71 +14,54 @@ class CreateForeignersTable extends Migration
     public function up()
     {
         Schema::create('foreigners', function (Blueprint $table) {
-            $table->increments('id');
-
-            $table
-                ->unsignedInteger('company_id')
-                ->index('company_id')
-                ->nullable(true)
-                ->default(null);
+            $table->id();
 
             $table->string('name')->default('');
             $table->string('surname')->default('');
 
-            $table
-                ->unsignedInteger('position_id')
-                ->index('position_id')
-                ->nullable(true)
-                ->default(null);
-
-            $table
-                ->unsignedInteger('country_id')
-                ->index('country_id')
-                ->nullable(false);
-
             $table->timestamp('regdate')->useCurrentOnUpdate()->useCurrent();
 
-            $table->date('regenddate')->nullable(true)->default(null);
-
-            $table->unsignedInteger('patentserie')->nullable(true)->default(null);
+            $table->string('patentserie', 20)->nullable(true)->default(null);
             $table->unsignedInteger('patentnumber')->nullable(true)->default(null);
-
-            $table->date('patentdate')->nullable(true)->default(null);
-            $table->date('patentenddate')->nullable(true)->default(null);
-            $table->date('patentnextpaydate')->nullable(true)->default(null);
 
             $table->unsignedInteger('polisnumber')->nullable(true)->default(null);
             $table->string('poliscompany')->default('');
-
-            $table->date('polisdate')->nullable(true)->default(null);
-            $table->date('polisenddate')->nullable(true)->default(null);
-            $table->date('dateoutwork')->nullable(true)->default(null);
-            $table->date('dateinwork')->nullable(true)->default(null);
 
             $table->timestamps();
 
             // foreign keys
             $table
-                ->foreign('company_id')
-                ->references('id')
-                ->on('companies')
+                ->foreignId('company_id')->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
             $table
-                ->foreign('country_id')
-                ->references('id')
-                ->on('countries')
+                ->foreignId('country_id')->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
 
             $table
-                ->foreign('position_id')
-                ->references('id')
-                ->on('positions')
+                ->foreignId('position_id')->constrained()
                 ->cascadeOnUpdate()
                 ->restrictOnDelete();
+
+            $this->addDatesToTable($table);
         });
+    }
+
+    protected function addDatesToTable(Blueprint $table) : void
+    {
+        $table->date('regenddate')->nullable(true)->default(null);
+
+        $table->date('patentdate')->nullable(true)->default(null);
+        $table->date('patentenddate')->nullable(true)->default(null);
+        $table->date('patentnextpaydate')->nullable(true)->default(null);
+
+        $table->date('polisdate')->nullable(true)->default(null);
+        $table->date('polisenddate')->nullable(true)->default(null);
+
+        $table->date('dateoutwork')->nullable(true)->default(null);
+        $table->date('dateinwork')->nullable(true)->default(null);
     }
 
     /**

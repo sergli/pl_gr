@@ -14,7 +14,7 @@ class CreateUsersTable extends Migration
     public function up()
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->increments('id');
+            $table->id();
             $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -24,32 +24,9 @@ class CreateUsersTable extends Migration
 
             $table->string('surname')->default('');
 
-            $table
-                ->unsignedInteger('company_id')
-                ->index('company_id')
-                ->nullable(true)
-                ->default(null);
-
-            $table
-                ->unsignedInteger('role_id')
-                ->index('role_id')
-                ->nullable(true)
-                ->default(null);
-
             // foreign keys
-            $table
-                ->foreign('company_id')
-                ->references('id')
-                ->on('companies')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
-
-            $table
-                ->foreign('role_id')
-                ->references('id')
-                ->on('roles')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
+            $table->foreignId('company_id')->constrained();
+            $table->foreignId('role_id')->nullable(true)->constrained();
         });
     }
 

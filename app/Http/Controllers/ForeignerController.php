@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use \App\Models\Foreigner;
+use Illuminate\Support\Facades\Auth;
 
 class ForeignerController extends Controller
 {
@@ -12,9 +13,9 @@ class ForeignerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $user = \auth()->user();
+        $user = $request->user();
         $foreigners = Foreigner::all()->where('company_id', $user->company->id);
 
         return view('foreigners.index', compact('foreigners', 'user'));
@@ -43,23 +44,58 @@ class ForeignerController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'         => 'required',
-            'surname'      => 'required',
-            'company_id'   => 'required',
-            'country_id'   => 'required',
-            'position_id'  => 'required',
-            'poliscompany' => 'required',
-        ]
+        $request->validate(
+            [
+                'name'              => 'required',
+                'surname'           => 'required',
+                'company_id'        => 'required|numeric',
+                'country_id'        => 'required|numeric',
+                'position_id'       => 'required|numeric',
+                // patent
+                'patentdate'        => 'nullable|date',
+                'patentenddate'     => 'nullable|date',
+                'patentnextpaydate' => 'nullable|date',
+                'patentserie'       => 'string',
+                'patentnumber'      => 'numeric',
+                // polis
+                'polisdate'         => 'nullable|date|date_format:Y-m-d',
+                'polisenddate'      => 'nullable|date|date_format:Y-m-d|after_or_equal:polisdate',
+                'poliscompany'      => 'string',
+                'polisnumber'       => 'numeric',
+                //
+                'dateinwork'        => 'nullable|date|date_format:Y-m-d',
+                'dateoutwork'       => 'nullable|date|date_format:Y-m-d|after_or_equal:dateinwork',
+                // reg dates
+                'regdate'           => 'nullable|date|date_format:Y-m-d',
+                'regenddate'        => 'nullable|date|date_format:Y-m-d|after_or_equal:regdate',
+            ]
         );
-        $Foreigner = new Foreigner([
-            'name'         => $request->get('name'),
-            'surname'      => $request->get('surname'),
-            'company_id'   => $request->get('company_id'),
-            'country_id'   => $request->get('country_id'),
-            'position_id'  => $request->get('position_id'),
-            'poliscompany' => $request->get('poliscompany'),
-        ]);
+        $Foreigner = new Foreigner(
+            [
+                'name'              => $request->get('name'),
+                'surname'           => $request->get('surname'),
+                'company_id'        => $request->get('company_id'),
+                'country_id'        => $request->get('country_id'),
+                'position_id'       => $request->get('position_id'),
+                // pagent
+                'patentdate'        => $request->get('patentdate'),
+                'patentenddate'     => $request->get('patentenddate'),
+                'patentnextpaydate' => $request->get('patentnextpaydate'),
+                'patentserie'       => $request->get('patentserie'),
+                'patentnumber'      => $request->get('patentnumber'),
+                // polis
+                'polisdate'         => $request->get('polisdate'),
+                'polisenddate'      => $request->get('polisenddate'),
+                'poliscompany'      => $request->get('poliscompany'),
+                'polisnumber'       => $request->get('polisnumber'),
+                //
+                'dateinwork'        => $request->get('dateinwork'),
+                'dateoutwork'       => $request->get('dateoutwork'),
+                // reg date
+                'regdate'           => $request->get('regdate'),
+                'regenddate'        => $request->get('regenddate'),
+            ]
+        );
         $Foreigner->save();
 
         return redirect('/foreigners')->with('success', 'Foreigner saved!');
@@ -89,7 +125,7 @@ class ForeignerController extends Controller
         $user = $request->user();
         $companies = \App\Models\Company::all()->unique('name');
         $countries = \App\Models\Country::all()->unique('name');
-        $positions =  \App\Models\Position::all()->unique('name');
+        $positions = \App\Models\Position::all()->unique('name');
 
         return view('foreigners.edit', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
     }
@@ -107,9 +143,25 @@ class ForeignerController extends Controller
             'name'         => 'required',
             'surname'      => 'required',
             //'company_id'   => 'required',
-            'country_id'   => 'required',
-            'position_id'  => 'required',
-            'poliscompany' => 'required',
+            'country_id'   => 'required|numeric',
+            'position_id'  => 'required|numeric',
+            // patent
+            'patentdate'        => 'nullable|date|date_format:Y-m-d',
+            'patentenddate'     => 'nullable|date|date_format:Y-m-d|after_or_equal:patentdate',
+            'patentnextpaydate' => 'nullable|date|date_format:Y-m-d|after_or_equal:patentdate',
+            'patentserie'       => 'nullable|string',
+            'patentnumber'      => 'nullable|numeric',
+            // polis
+            'polisdate'     => 'nullable|date|date_format:Y-m-d',
+            'polisenddate'  => 'nullable|date|date_format:Y-m-d|after_or_equal:polisdate',
+            'poliscompany'  => 'nullable|string',
+            'polisnumber'   => 'nullable|numeric',
+            //
+            'dateinwork'     => 'nullable|date|date_format:Y-m-d',
+            'dateoutwork'    => 'nullable|date|date_format:Y-m-d|after_or_equal:dateinwork',
+            // reg dates
+            'regdate'         => 'nullable|date|date_format:Y-m-d',
+            'regenddate'      => 'nullable|date|date_format:Y-m-d|after_or_equal:regdate',
         ]);
 
         $foreigner = Foreigner::find($id);
@@ -121,7 +173,22 @@ class ForeignerController extends Controller
         $foreigner->position_id = $request->get('position_id');
         $foreigner->country_id = $request->get('country_id');
 
-        $foreigner->poliscompany = $request->get('poliscompany');
+        $foreigner->patentdate        = $request->get('patentdate');
+        $foreigner->patentenddate     = $request->get('patentenddate');
+        $foreigner->patentnextpaydate = $request->get('patentnextpaydate');
+        $foreigner->patentnumber      = $request->get('patentnumber');
+        $foreigner->patentserie       = $request->get('patentserie');
+
+        $foreigner->polisdate        = $request->get('polisdate');
+        $foreigner->polisenddate     = $request->get('polisenddate');
+        $foreigner->polisnumber      = $request->get('polisnumber');
+        $foreigner->poliscompany     = $request->get('poliscompany');
+
+        $foreigner->dateinwork       = $request->get('dateinwork');
+        $foreigner->dateoutwork      = $request->get('dateoutwork');
+
+        $foreigner->regdate          = $request->get('regdate');
+        $foreigner->regenddate       = $request->get('regenddate');
 
         $foreigner->save();
 

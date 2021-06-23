@@ -36,69 +36,107 @@
 </nav>
 @yield('content')
 
-
 @section('main')
 <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
 
-        <h1 class="display-5">Current user</h1>
-        <table class="table table-dark">
-            <tr>
-                <td>ID</td> <td>{{$user->id}}</td>
-            </tr>
-            <tr>
-                <td>Name</td> <td>{{$user->name}} {{$user->surname}}</td>
-            </tr>
-            <tr>
-                <td>Email</td> <td>{{$user->email}}</td>
-            </tr>
-            <tr>
-                <td>Company</td> <td>{{$user->company->name}}</td>
-            </tr>
-            <tr>
-                <td>Role</td> <td>{{$user->role}}</td>
-            </tr>
-        </table>
+        <div id="current_user_table" class="row p-2 table-responsive-sm">
+            <table class="table table-sm table-dark">
+                <caption class="text-right" style="caption-side: top">Current user</caption>
+                <tr>
+                    <th scope="row">ID</th> <td>{{$user->id}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Full name</th> <td>{{$user->name}} {{$user->surname}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th> <td>{{$user->email}}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Role @ company</th> <td>{{$user->role->name}} @ <span class="text-success">{{$user->company->name}}</span></td>
+                </tr>
+            </table>
+        </div>
 
-        <h1 class="display-5">Foreigners</h1>
-        <table class="table table-striped">
+        <div id="foreigners_table" class="row p-2 table-responsive-sm">
+        <table class="table table-bordered table-hover text-nowrap">
+            <caption class="text-right" style="caption-side: top">Foreigners</caption>
             <thead>
             <tr>
-                <td>ID</td>
-                <td>Name</td>
-                <td>Surname</td>
-                <td>Company</td>
-                <td>Position</td>
-                <td>Country</td>
-                <td>Polis company</td>
-                <td colspan=2>Actions</td>
+                <th scope="col">ID</th>
+                <th scope="col">Full name</th>
+                <th scope="col">position @ company</th>
+                <th scope="col">Country</th>
+                <th scope="col">Patent</th>
+                <th scope="col">Policy</th>
+                <th scope="col">Reg. dates</th>
+                <th scope="col">Work dates</th>
+                <th scope="col">Actions</th>
             </tr>
             </thead>
+
             <tbody>
             @foreach($foreigners as $foreigner)
             <tr>
+
                 <td>{{$foreigner->id}}</td>
-                <td>{{$foreigner->name}}</td>
-                <td>{{$foreigner->surname}}</td>
-                <td>{{$foreigner->company->name}}</td>
-                <td>{{$foreigner->position->name}}</td>
-                <td>{{$foreigner->country->name}}</td>
-                <td>{{$foreigner->poliscompany}}</td>
+                <td>{{$foreigner->name}} {{$foreigner->surname}}</td>
+                <td>{{$foreigner->position->name}} @ <span @if($foreigner->company->id === $user->company->id) class="text-success"@endif > {{$foreigner->company->name}}</span></td>
+                <td class="text-wrap">{{$foreigner->country->name}}</td>
+
+                <td>@include('foreigners.patent')</td>
+                <td>@include('foreigners.policy')</td>
+
                 <td>
-                    <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-primary">Edit</a>
+                    @if ($foreigner->regdate || $foreigner->regenddate)
+                    <table class="table table-sm table-borderless table-striped text-nowrap" >
+                        <tr>
+                            <th scope="row">Start</th>
+                            <td>{{$foreigner->regdate}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">End</th>
+                            <td>{{$foreigner->regenddate}}</td>
+                        </tr>
+                    </table>
+                    @endif
                 </td>
+
                 <td>
-                    <form action="{{ route('foreigners.destroy', $foreigner->id)}}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <button class="btn btn-danger" type="submit">Delete</button>
-                    </form>
+                    @if ($foreigner->dateoutwork || $foreigner->dateinwork)
+                    <table class="table table-sm table-borderless table-striped text-nowrap" >
+                        <tr>
+                            <th scope="row">start</th>
+                            <td>{{$foreigner->dateoutwork}}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">end</th>
+                            <td>{{$foreigner->dateinwork}}</td>
+                        </tr>
+                    </table>
+                    @endif
                 </td>
+
+                <td>
+                    <div class="row-cols-lg-1">
+                        <div class="btn-group btn-group-vertical" role="group">
+                            <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-outline-success">Edit</a>
+                            <form action="{{ route('foreigners.destroy', $foreigner->id)}}" method="post">
+                                @csrf
+                                @method('DELETE')
+                                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </td>
+
             </tr>
             @endforeach
             </tbody>
+
         </table>
-    <div>
+    </div>
+<div>
 </div>
 <div class="btn-group" role="group">
     <a type="button" href="{{ route('foreigners.create')}}" class="align-self-end btn btn-lg btn-primary">Add foreigner</a>

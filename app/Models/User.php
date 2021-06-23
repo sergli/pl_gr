@@ -46,16 +46,16 @@ class User extends Authenticatable
 
     public function position()
     {
-        return $this->belongsTo(Position::class);
+        return $this->belongsTo(Position::class)->withDefault();
     }
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function role()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsTo(Role::class)->withDefault(['id' => null, 'name' => Role::ROLE_USER]);
     }
 }

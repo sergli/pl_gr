@@ -15,35 +15,35 @@ class Foreigner extends Model
         'surname',
         'position_id',
         'country_id',
-        //'regdate',
-        //'regenddate',
-//        'patentserie',
-//        'patentnumber',
-        //'patentdate',
-        //'patentenddate',
-        //'patentnextpaydate',
-//        'polisnumber',
+        'regdate',
+        'regenddate',
+        'patentserie',
+        'patentnumber',
+        'patentdate',
+        'patentenddate',
+        'patentnextpaydate',
+        'polisnumber',
         'poliscompany',
-        //'polisdate',
-        //'polisenddate',
-//        'dateoutwork',
-        //'dateinwork',
+        'polisdate',
+        'polisenddate',
+        'dateoutwork',
+        'dateinwork',
         //'created_at',
         //'updated_at',
     ];
 
     public function country()
     {
-        return $this->belongsTo(Country::class);
+        return $this->belongsTo(Country::class)->withDefault();
     }
 
     public function company()
     {
-        return $this->belongsTo(Company::class);
+        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function position()
     {
-        return $this->belongsTo(Position::class);
+        return $this->belongsTo(Position::class)->withDefault();
     }
 }
