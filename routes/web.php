@@ -21,3 +21,10 @@ Route::resource('foreigners', ForeignerController::class)->middleware('auth');
 
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/send_email', function () {
+    $foreigners = \App\Models\Foreigner::cursor()->filter(function (\App\Models\Foreigner $foreigner) {
+        return $foreigner->hasAnyDatesNearExpire();
+    });
+    Mail::to('ivan@ivanov.ru')->send(new \App\Mail\SomeForeignersNearExpiryEmail($foreigners));
+});
