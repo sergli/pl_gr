@@ -6,11 +6,11 @@
     </tr>
     <tr>
         <th scope="row">start</th>
-        <td>{{$foreigner->polisdate}}</td>
+        <td @if($foreigner->isNearExpiry('polisdate')) class="table-danger" @endif >{{$foreigner->polisdate}}</td>
     </tr>
     <tr>
         <th scope="row">end</th>
-        <td>{{$foreigner->polisenddate}}</td>
+        <td @if($foreigner->isNearExpiry('polisenddate')) class="table-danger" @endif >{{$foreigner->polisenddate}}</td>
     </tr>
 </table>
 @endif

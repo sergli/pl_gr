@@ -6,15 +6,15 @@
         </tr>
         <tr>
             <th scope="row">start</th>
-            <td>{{$foreigner->patentdate}}</td>
+            <td @if($foreigner->isNearExpiry('patentdate')) class="table-danger" @endif >{{$foreigner->patentdate}}</td>
         </tr>
         <tr>
             <th scope="row">end</th>
-            <td>{{$foreigner->patentenddate}}</td>
+            <td @if($foreigner->isNearExpiry('patentenddate')) class="table-danger" @endif >{{$foreigner->patentenddate}}</td>
         </tr>
         <tr>
             <th scope="row">next pay</th>
-            <td>{{$foreigner->patentnextpaydate}}</td>
+            <td @if($foreigner->isNearExpiry('patentnextpaydate')) class="table-danger" @endif >{{$foreigner->patentnextpaydate}}</td>
         </tr>
     </table>
 @endif

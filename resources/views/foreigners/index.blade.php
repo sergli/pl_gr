@@ -1,5 +1,4 @@
 @extends('base')
-
 <div class="col-sm-12">
 
     @if(session()->get('success'))
@@ -91,12 +90,12 @@
                     @if ($foreigner->regdate || $foreigner->regenddate)
                     <table class="table table-sm table-borderless table-striped text-nowrap" >
                         <tr>
-                            <th scope="row">Start</th>
-                            <td>{{$foreigner->regdate}}</td>
+                            <th scope="row">start</th>
+                            <td @if($foreigner->isNearExpiry('regdate')) class="table-danger" @endif > {{$foreigner->regdate}}</td>
                         </tr>
                         <tr>
-                            <th scope="row">End</th>
-                            <td>{{$foreigner->regenddate}}</td>
+                            <th scope="row">end</th>
+                            <td @if($foreigner->isNearExpiry('regenddate')) class="table-danger" @endif > {{$foreigner->regenddate}}</td>
                         </tr>
                     </table>
                     @endif
@@ -107,11 +106,11 @@
                     <table class="table table-sm table-borderless table-striped text-nowrap" >
                         <tr>
                             <th scope="row">start</th>
-                            <td>{{$foreigner->dateoutwork}}</td>
+                            <td @if($foreigner->isNearExpiry('dateinwork')) class="table-danger" @endif > {{$foreigner->dateinwork}}</td>
                         </tr>
                         <tr>
                             <th scope="row">end</th>
-                            <td>{{$foreigner->dateinwork}}</td>
+                            <td @if($foreigner->isNearExpiry('dateoutwork')) class="table-danger" @endif >{{$foreigner->dateoutwork}}</td>
                         </tr>
                     </table>
                     @endif
@@ -120,11 +119,11 @@
                 <td>
                     <div class="row-cols-lg-1">
                         <div class="btn-group btn-group-vertical" role="group">
-                            <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-outline-success">Edit</a>
+                            <a href="{{ route('foreigners.edit', $foreigner->id)}}" class="btn btn-outline-success btn-lg">Edit</a>
                             <form action="{{ route('foreigners.destroy', $foreigner->id)}}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn btn-outline-danger" type="submit">Delete</button>
+                                <button class="btn btn-outline-danger btn-lg" type="submit">Delete</button>
                             </form>
                         </div>
                     </div>
