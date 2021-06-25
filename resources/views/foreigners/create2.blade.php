@@ -29,12 +29,12 @@
                     <label for="name" class="input-group-text col-sm-3">Name</label>
                     <input type="text" placeholder="Name" class="form-control" name="name" id="name" value="{{ old('name', $foreigner->name) }}" />
                     <label for="surname" class="input-group-text col-sm-3" hidden>Surname</label>
-                    <input type="text" placeholder="Surname" class="form-control" name="surname" id="surname" value="{{ $foreigner->surname }}" />
+                    <input type="text" placeholder="Surname" class="form-control" name="surname" id="surname" value="{{ old('surname', $foreigner->surname) }}" />
                 </div>
                 <div class="w-100"></div>
                 <div class="input-group col-sm-8">
                     <label for="email" class="input-group-text col-sm-3">Email</label>
-                    <input type="text" placeholder="Email" class="form-control" name="email" id="email" value="{{ $foreigner->email }}" />
+                    <input type="text" placeholder="Email" class="form-control" name="email" id="email" value="{{ old('email', $foreigner->email) }}" />
                 </div>
                 <div class="w-100"></div>
                 <div class="input-group col-sm-8">
@@ -42,7 +42,7 @@
                     <select class="form-select form-control" name="country_id" id="country_id" aria-label="Select country">
                         <option hidden>Country</option>
                         @foreach($countries as $country)
-                        <option value="{{$country->id}}" {{ $country->id == $foreigner->country->id ? 'selected' : '' }}>{{$country->name}}</option>
+                        <option value="{{$country->id}}" {{ $country->id == old('country_id') ? 'selected="selected"' : '' }}>{{$country->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -57,7 +57,7 @@
                     <select class="form-select form-control" name="position_id" id="position_id">
                         <option hidden>Position</option>
                         @foreach($positions as $position)
-                        <option value="{{$position->id}}" {{ $position->id == $foreigner->position->id ? 'selected' : '' }}>{{$position->name}}</option>
+                        <option value="{{$position->id}}" {{ $position->id == old('position_id') ? 'selected="selected"' : '' }}>{{$position->name}}</option>
                         @endforeach
                     </select>
                     <span class="input-group-text">@</span>
@@ -65,7 +65,7 @@
                     <select class="form-select form-control" name="company_id" id="company_id">
                         <option hidden>Company</option>
                         @foreach($companies as $company)
-                        <option value="{{$company->id}}" {{ $company->id == $foreigner->company->id ? 'selected' : '' }}>{{$company->name}}</option>
+                        <option value="{{$company->id}}" {{ $company->id == $foreigner->company->id ? 'selected="selected"' : '' }}>{{$company->name}}</option>
                         @endforeach
                     </select>
                 </div>
