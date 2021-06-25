@@ -33,7 +33,9 @@ class ForeignerController extends Controller
         $countries = \App\Models\Country::all()->unique('name');
         $positions = \App\Models\Position::all()->unique('name');
 
-        return view('foreigners.create', compact('user', 'companies', 'countries', 'positions'));
+        $foreigner = new Foreigner(['company_id' => $user->company->id]);
+
+        return view('foreigners.create', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
     }
 
     protected function getAllValidationRules(Request $request) : array
@@ -84,9 +86,11 @@ class ForeignerController extends Controller
     public function store(Request $request)
     {
         $rules = $this->getAllValidationRules($request);
-        $attributes = array_map(function($attribute) use ($request) {
-            return $request->get($attribute);
-        }, array_keys($rules));
+
+        $attributes = [];
+        foreach ($rules as $attribute_name => $_) {
+            $attributes[$attribute_name] = $request->get($attribute_name);
+        }
 
         $request->validate($rules);
         $Foreigner = new Foreigner($attributes);
