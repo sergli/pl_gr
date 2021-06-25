@@ -35,7 +35,8 @@ class ForeignerController extends Controller
 
         $foreigner = new Foreigner(['company_id' => $user->company->id]);
 
-        return view('foreigners.create', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
+        //return view('foreigners.create', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
+        return view('foreigners.create2', compact('user', 'foreigner', 'companies', 'countries', 'positions'));
     }
 
     protected function getAllValidationRules(Request $request) : array
