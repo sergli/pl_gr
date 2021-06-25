@@ -69,7 +69,7 @@ class Foreigner extends Model
         if (in_array($date_column_name, self::$monitored_dates, true)) {
             $date = $this->{$date_column_name};
             if (!empty($date)) {
-                $date = \Carbon\Carbon::createFromFormat('Y-m-d', $date)->setTime(0, 0, 0);
+                $date = (new \Carbon\Carbon($date))->setTime(0, 0, 0);
                 $diff = $date->diffInDays('now', false);
                 return ($diff >= 0 && $diff <= self::$acceptable_days_before_expiration);
             }

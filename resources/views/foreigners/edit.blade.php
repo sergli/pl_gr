@@ -43,7 +43,7 @@
                     <select class="form-select form-control" name="country_id" id="country_id">
                         <option hidden>Country</option>
                         @foreach($countries as $country)
-                        <option value="{{$country->id}}" {{ $country->id == $foreigner->country->id ? 'selected' : '' }}>{{$country->name}}</option>
+                        <option value="{{$country->id}}" {{ $country->id == $foreigner->country->id ? 'selected="selected"' : '' }}>{{$country->name}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -58,7 +58,7 @@
                     <select class="form-select form-control" name="position_id" id="position_id">
                         <option hidden>Position</option>
                         @foreach($positions as $position)
-                        <option value="{{$position->id}}" {{ $position->id == $foreigner->position->id ? 'selected' : '' }}>{{$position->name}}</option>
+                        <option value="{{$position->id}}" {{ $position->id == $foreigner->position->id ? 'selected="selected"' : '' }}>{{$position->name}}</option>
                         @endforeach
                     </select>
                     <span class="input-group-text">@</span>
@@ -66,7 +66,7 @@
                     <select class="form-select form-control" name="company_id" id="company_id">
                         <option hidden>Company</option>
                         @foreach($companies as $company)
-                        <option value="{{$company->id}}" {{ $company->id == $foreigner->company->id ? 'selected' : '' }}>{{$company->name}}</option>
+                        <option value="{{$company->id}}" {{ $company->id == $foreigner->company->id ? 'selected="selected"' : '' }}>{{$company->name}}</option>
                         @endforeach
                     </select>
                 </div>
