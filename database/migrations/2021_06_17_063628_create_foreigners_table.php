@@ -19,7 +19,7 @@ class CreateForeignersTable extends Migration
             $table->string('name')->default('');
             $table->string('surname')->default('');
 
-            $table->timestamp('regdate')->useCurrentOnUpdate()->useCurrent();
+            $table->timestamp('regdate')->nullable(true)->default(null);
 
             $table->string('patentserie', 20)->nullable(true)->default(null);
             $table->unsignedInteger('patentnumber')->nullable(true)->default(null);
