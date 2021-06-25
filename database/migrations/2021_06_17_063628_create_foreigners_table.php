@@ -25,7 +25,7 @@ class CreateForeignersTable extends Migration
             $table->unsignedInteger('patentnumber')->nullable(true)->default(null);
 
             $table->unsignedInteger('polisnumber')->nullable(true)->default(null);
-            $table->string('poliscompany')->default('');
+            $table->string('poliscompany')->nullable(true)->default('');
 
             $table->timestamps();
 
