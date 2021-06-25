@@ -130,7 +130,7 @@
                 <div class="row p-2">
                     <div class="input-group col-sm-8">
                         <span class="input-group-text col-sm-3" >Start</span>
-                        <input type="date" class="form-control" name="dateinwork" id="regdate" aria-label="regdate" value="{{ $foreigner->regdate }}"/>
+                        <input type="date" class="form-control" name="regdate" id="regdate" aria-label="regdate" value="{{ $foreigner->regdate }}"/>
                     </div>
                     <div class="w-100"></div>
                     <div class="input-group col-sm-8">
