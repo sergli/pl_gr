@@ -36,7 +36,7 @@ class ForeignerController extends Controller
         return view('foreigners.create', compact('user', 'companies', 'countries', 'positions'));
     }
 
-    protected function getAllValidationRules() : array
+    protected function getAllValidationRules(Request $request) : array
     {
         return [
             'name'              => 'required',
@@ -45,18 +45,33 @@ class ForeignerController extends Controller
             'country_id'        => 'required|numeric',
             'position_id'       => 'required|numeric',
             'patentdate'        => 'nullable|date|date_format:Y-m-d',
-            'patentenddate'     => 'nullable|date|date_format:Y-m-d|after_or_equal:patentdate',
-            'patentnextpaydate' => 'nullable|date|date_format:Y-m-d|after_or_equal:patentdate',
+            'patentenddate'     => array_merge(
+                ['nullable', 'date', 'date_format:Y-m-d'],
+                $request->filled('patentdate') ? ['after_or_equal:patentdate'] : []
+            ),
+            'patentnextpaydate' => array_merge(
+                ['nullable', 'date', 'date_format:Y-m-d'],
+                $request->filled('patentdate') ? ['after_or_equal:patentdate'] : []
+            ),
             'patentserie'       => 'nullable|string',
             'patentnumber'      => 'nullable|numeric',
             'polisdate'         => 'nullable|date|date_format:Y-m-d',
-            'polisenddate'      => 'nullable|date|date_format:Y-m-d|after_or_equal:polisdate',
+            'polisenddate'      => array_merge(
+                ['nullable', 'date', 'date_format:Y-m-d'],
+                $request->filled('polisdate') ? ['after_or_equal:polisdate'] : []
+            ),
             'poliscompany'      => 'nullable|string',
             'polisnumber'       => 'nullable|numeric',
             'dateinwork'        => 'nullable|date|date_format:Y-m-d',
-            'dateoutwork'       => 'nullable|date|date_format:Y-m-d|after_or_equal:dateinwork',
+            'dateoutwork'       => array_merge(
+                ['nullable', 'date', 'date_format:Y-m-d'],
+                $request->filled('dateinwork') ? ['after_or_equal:dateinwork'] : []
+            ),
             'regdate'           => 'nullable|date|date_format:Y-m-d',
-            'regenddate'        => 'nullable|date|date_format:Y-m-d|after_or_equal:regdate',
+            'regenddate'        => array_merge(
+                ['nullable', 'date', 'date_format:Y-m-d'],
+                $request->filled('regdate') ? ['after_or_equal:regdate'] : []
+            ),
         ];
     }
 
@@ -68,7 +83,7 @@ class ForeignerController extends Controller
      */
     public function store(Request $request)
     {
-        $rules = $this->getAllValidationRules();
+        $rules = $this->getAllValidationRules($request);
         $attributes = array_map(function($attribute) use ($request) {
             return $request->get($attribute);
         }, array_keys($rules));
@@ -118,7 +133,7 @@ class ForeignerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validation_rules = $this->getAllValidationRules();
+        $validation_rules = $this->getAllValidationRules($request);
         // company is not editable
         unset($validation_rules['company_id']);
         $attributes = array_keys($validation_rules);

@@ -79,7 +79,7 @@
             <tr>
 
                 <td>{{$foreigner->id}}</td>
-                <td>{{$foreigner->name}} {{$foreigner->surname}}</td>
+                <td class="text-wrap">{{$foreigner->name}} {{$foreigner->surname}}</td>
                 <td>{{$foreigner->position->name}} @ <span @if($foreigner->company->id === $user->company->id) class="text-success"@endif > {{$foreigner->company->name}}</span></td>
                 <td class="text-wrap">{{$foreigner->country->name}}</td>
 
