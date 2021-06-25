@@ -19,13 +19,13 @@ class CreateForeignersTable extends Migration
             $table->string('name')->default('');
             $table->string('surname')->default('');
 
-            $table->timestamp('regdate')->nullable(true)->default(null);
-
             $table->string('patentserie', 20)->nullable(true)->default(null);
             $table->unsignedInteger('patentnumber')->nullable(true)->default(null);
 
             $table->unsignedInteger('polisnumber')->nullable(true)->default(null);
             $table->string('poliscompany')->nullable(true)->default('');
+
+            $table->text('comment')->nullable(true)->default(null);
 
             $table->timestamps();
 
@@ -51,6 +51,7 @@ class CreateForeignersTable extends Migration
 
     protected function addDatesToTable(Blueprint $table) : void
     {
+        $table->date('regdate')->nullable(true)->default(null);
         $table->date('regenddate')->nullable(true)->default(null);
 
         $table->date('patentdate')->nullable(true)->default(null);
