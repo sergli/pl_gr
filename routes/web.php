@@ -26,5 +26,8 @@ Route::get('/send_email', function () {
     $foreigners = \App\Models\Foreigner::cursor()->filter(function (\App\Models\Foreigner $foreigner) {
         return $foreigner->hasAnyDatesNearExpire();
     });
-    Mail::to('ivan@ivanov.ru')->send(new \App\Mail\SomeForeignersNearExpiryEmail($foreigners));
+    $Email = new \App\Mail\SomeForeignersNearExpiryEmail($foreigners);
+
+    Mail::to('ivan@ivanov.ru')->send($Email);
+    return $Email->render();
 });

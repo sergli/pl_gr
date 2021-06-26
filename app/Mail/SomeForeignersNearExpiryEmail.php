@@ -30,8 +30,9 @@ class SomeForeignersNearExpiryEmail extends Mailable
      */
     public function build()
     {
-        return $this->from('mail@plg.ru', 'Mail example')
-            ->subject('Some foreigners near expiry')
-            ->html('Please pay attention');
+        return $this
+            ->from('mail@plg.ru', 'Mail example')
+            ->subject('Some foreigners are near expiry')
+            ->markdown('emails.near-expiry', ['foreigners' => $this->foreigners, 'i' => 0]);
     }
 }
